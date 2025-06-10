@@ -10,10 +10,9 @@ on:
       action:
         description: "Choose the Terraform action"
         required: true
-        default: "plan"
+        default: "apply"
         type: choice
         options:
-          - plan
           - apply
           - destroy
 
@@ -21,6 +20,10 @@ jobs:
   terraform:
     name: Terraform Deploy
     runs-on: ubuntu-latest
+    environment: production
+    env:
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
     steps:
       - name: Checkout Repository
@@ -44,7 +47,5 @@ jobs:
       - name: Terraform Destroy
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'destroy'
         run: terraform destroy -auto-approve
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
 
