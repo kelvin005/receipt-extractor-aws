@@ -79,7 +79,8 @@ resource "aws_iam_policy" "terraform_user_policy" {
         Effect = "Allow",
         Action = [
           "ses:ListIdentities",
-          "ses:GetIdentityVerificationAttributes"
+          "ses:GetIdentityVerificationAttributes",
+          "ses:VerifyEmailIdentity"
         ],
         Resource = "*"
       }
