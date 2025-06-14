@@ -80,7 +80,9 @@ resource "aws_iam_policy" "terraform_user_policy" {
         Action = [
           "ses:ListIdentities",
           "ses:GetIdentityVerificationAttributes",
-          "ses:VerifyEmailIdentity"
+          "ses:VerifyEmailIdentity",
+          "ses:SendEmail",
+          "ses:SendRawEmail"
         ],
         Resource = "*"
       }
